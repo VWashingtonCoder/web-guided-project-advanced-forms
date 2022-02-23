@@ -15,7 +15,7 @@ const formSchema = yup.object().shape({
     .string()
     .oneOf(['instructor', 'student', 'alumni'], 'Role is required COME ON!!!'),
   civil: yup
-    .required()
+    .string()
     .oneOf(['married', 'single'], 'Gotta be either married or single, bud.'),
   coding: yup.boolean(),
   reading: yup.boolean(),
