@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import Friend from './Friend'
 import FriendForm from './FriendForm'
 // 🔥 STEP 1- CHECK THE ENDPOINTS IN THE README
@@ -49,12 +50,21 @@ export default function App() {
   const getFriends = () => {
     // 🔥 STEP 5- IMPLEMENT! ON SUCCESS PUT FRIENDS IN STATE
     //    helper to [GET] all friends from `http://buddies.com/api/friends`
+    axios.get('http://buddies.com/api/friends')
+      .then(res => {
+        setFriends(res.data);
+      }).catch(err => console.error(err))
   }
 
   const postNewFriend = newFriend => {
     // 🔥 STEP 6- IMPLEMENT! ON SUCCESS ADD NEWLY CREATED FRIEND TO STATE
     //    helper to [POST] `newFriend` to `http://buddies.com/api/friends`
     //    and regardless of success or failure, the form should reset
+    axios.post('http://buddies.com/api/friends', newFriend)
+      .then(res => {
+        setFriends([res.data, ...friends]);
+        setFormValues(initialFormValues);
+      }).catch(err => console.error(err))
   }
 
   //////////////// EVENT HANDLERS ////////////////
@@ -83,9 +93,17 @@ export default function App() {
       role: formValues.role.trim(),
       civil: formValues.civil.trim(),
       // 🔥 STEP 7- WHAT ABOUT HOBBIES?
+      hobbies: ['hiking', 'reading', 'coding'].filter(hobby => formValues[hobby])
     }
     // 🔥 STEP 8- POST NEW FRIEND USING HELPER
+    postNewFriend(newFriend);
   }
+
+  // !true => !false => true
+  // !"blah" => !false => true
+  // !null => !true => false
+  // !"hiking" => !false => true
+  // !!"hiking" => true
 
   //////////////// SIDE EFFECTS ////////////////
   //////////////// SIDE EFFECTS ////////////////
