@@ -8,6 +8,11 @@ export default function FriendForm(props) {
     disabled,
     errors,
   } = props
+  /**
+   * const values = props.values;
+   * const submit = props.submit;
+   * const change = props.change
+   */
 
   const onSubmit = evt => {
     evt.preventDefault()
@@ -26,7 +31,7 @@ export default function FriendForm(props) {
         <h2>Add a Friend</h2>
 
         {/* 🔥 DISABLE THE BUTTON */}
-        <button>submit</button>
+        <button disabled={disabled}>submit</button>
 
         <div className='errors'>
           {/* 🔥 RENDER THE VALIDATION ERRORS HERE */}
@@ -74,7 +79,6 @@ export default function FriendForm(props) {
             <option value='student'>Student</option>
             <option value='alumni'>Alumni</option>
             <option value='instructor'>Instructor</option>
-            <option value='tl'>Team Lead</option>
           </select>
         </label>
 
@@ -82,11 +86,23 @@ export default function FriendForm(props) {
         {/* ////////// RADIO BUTTONS ////////// */}
         {/* ////////// RADIO BUTTONS ////////// */}
         <label>Single
-
+          <input
+            type='radio'
+            name='civil'
+            value='single'
+            onChange={onChange}
+            checked={values.civil === 'single'}
+          />
         </label>
 
         <label>Married
-
+          <input
+            type='radio'
+            name='civil'
+            value='married'
+            onChange={onChange}
+            checked={values.civil === 'married'}
+          />
         </label>
       </div>
 
@@ -97,15 +113,30 @@ export default function FriendForm(props) {
         {/* ////////// CHECKBOXES ////////// */}
         {/* ////////// CHECKBOXES ////////// */}
         <label>Hiking
-
+          <input
+            type='checkbox'
+            name='hiking'
+            checked={values.hiking}
+            onChange={onChange}
+          />
         </label>
 
         <label>Reading
-
+          <input
+            type='checkbox'
+            name='reading'
+            checked={values.reading}
+            onChange={onChange}
+          />
         </label>
 
         <label>Coding
-
+          <input
+            type='checkbox'
+            name='coding'
+            checked={values.coding}
+            onChange={onChange}
+          />
         </label>
       </div>
     </form>
